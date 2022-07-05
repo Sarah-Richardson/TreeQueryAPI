@@ -1,4 +1,5 @@
 # TreeQueryAPI
+.Net Core 3.0 VS 2022
 
 An RESTful API that queries a tree structure and return data about specific nodes and their children
 
