@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TreeQueryAPI.Helpers;
 using TreeQueryAPI.Models;
@@ -30,6 +31,7 @@ namespace TreeQueryAPI.Controllers
         public async Task<ActionResult<IEnumerable<Node>>> Get()
         {
             var nodes = await _nodeManager.GetAllNodesAsync();
+            if ((nodes == null) || (!nodes.Any())) return NotFound("There are no nodes");
             return Ok(nodes);
         }
 
@@ -42,6 +44,7 @@ namespace TreeQueryAPI.Controllers
         public async Task<ActionResult<Node>> Get(string id)
         {
             var node = await _nodeManager.GetNodeByIdAsync(id);
+            if (node == null) return NotFound($"Node not found {id}");
             return Ok(node);
         }
 
@@ -55,6 +58,7 @@ namespace TreeQueryAPI.Controllers
         public async Task<ActionResult<Node>> GetByName(string name)
         {
             var node = await _nodeManager.GetNodeByNameAsync(name);
+            if (node == null) return NotFound($"Node(s) not found {name}");
             return Ok(node);
         }
 
